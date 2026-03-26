@@ -5,6 +5,7 @@
 }
 
 .main-content {
+  padding: 20px;
   flex: 1;
   background-color: var(--bg-color);
 }
