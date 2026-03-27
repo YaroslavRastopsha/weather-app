@@ -1,0 +1,14 @@
+<section class="weather-list-section">
+  <div class="weather-list-section__header">
+    <h1>Прогноз погоди по містах</h1>
+    <p>Список побудований через smart/list компонент, а кожна картка є окремим dumb/card компонентом.</p>
+  </div>
+
+  <div class="weather-grid">
+    @for (item of items; track item.id) {
+      <weather-card [item]="item"></weather-card>
+    } @empty {
+      <p>Немає даних для відображення.</p>
+    }
+  </div>
+</section>

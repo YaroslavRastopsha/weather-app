@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Header } from './core/header/header';
 import { Footer } from './core/footer/footer';
+import { WeatherList } from './features/weather-list/weather-list';
 
 @Component({
   selector: 'weather-root',
-  imports: [RouterOutlet, Header, Footer],
+  imports: [Header, Footer, WeatherList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-}
+export class App {}
