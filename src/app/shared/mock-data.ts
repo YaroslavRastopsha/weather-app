@@ -20,6 +20,9 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       windSpeed: 3.4,
       pressure: 1018,
     },
+    isDiscount: true,
+    quantity: 7,
+    isFeatured: false,
   },
   {
     id: 2,
@@ -40,6 +43,9 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       windSpeed: 4.1,
       pressure: 1013,
     },
+    isDiscount: false,
+    quantity: 4,
+    isFeatured: true,
   },
   {
     id: 3,
@@ -60,6 +66,9 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       windSpeed: 6.3,
       pressure: 1011,
     },
+    isDiscount: true,
+    quantity: 10,
+    isFeatured: true,
   },
   {
     id: 4,
@@ -80,6 +89,9 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       windSpeed: 5.8,
       pressure: 1007,
     },
+    isDiscount: false,
+    quantity: 0,
+    isFeatured: false,
   },
   {
     id: 5,
@@ -95,11 +107,10 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       country: 'Ukraine',
       coordinates: { lat: 48.4647, lon: 35.0462 },
     },
-    details: {
-      humidity: 77,
-      windSpeed: 12.5,
-      pressure: 1003,
-    },
+    details: undefined, // штучно прибрали вкладений об'єкт для демонстрації Safe Navigation
+    isDiscount: false,
+    quantity: 2,
+    isFeatured: true,
   },
   {
     id: 6,
@@ -120,5 +131,8 @@ export const WEATHER_ITEMS: WeatherItem[] = [
       windSpeed: 7.9,
       pressure: 1009,
     },
+    isDiscount: true,
+    quantity: 0,
+    isFeatured: false,
   },
 ];

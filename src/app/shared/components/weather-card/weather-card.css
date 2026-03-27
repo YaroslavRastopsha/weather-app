@@ -7,6 +7,21 @@
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
   border: 1px solid #e2e8f0;
   height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+.weather-card--featured {
+  border: 2px solid #f59e0b;
+  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.25);
+}
+
+.weather-card--hot {
+  background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);
 }
 
 .weather-card__image {
@@ -19,13 +34,58 @@
   padding: 18px;
 }
 
-.weather-card__condition {
+.weather-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.weather-card__status {
   display: inline-block;
-  margin: 0 0 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #2563eb;
+  letter-spacing: 0.5px;
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+.weather-card__status--sunny {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.weather-card__status--cloudy {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.weather-card__status--rainy {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.weather-card__status--stormy {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.weather-card__status--snowy {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.weather-card__badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .weather-card h2 {
@@ -54,6 +114,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 18px;
 }
 
 .weather-card__tags span {
@@ -62,4 +123,30 @@
   background: #eff6ff;
   color: #1d4ed8;
   font-size: 13px;
+}
+
+.weather-card__actions {
+  margin-top: auto;
+}
+
+.weather-card__button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.weather-card__button:hover {
+  background: #1d4ed8;
+}
+
+.weather-card__button--disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
 }

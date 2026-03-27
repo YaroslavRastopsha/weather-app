@@ -1,8 +1,38 @@
-<article class="weather-card">
+<article
+  class="weather-card"
+  [class.weather-card--featured]="item.isFeatured"
+  [class.weather-card--hot]="item.temperature > 14"
+>
   <img class="weather-card__image" [src]="item.imageUrl" [alt]="item.title" />
 
   <div class="weather-card__content">
-    <p class="weather-card__condition">{{ item.condition | uppercase }}</p>
+    <div class="weather-card__top">
+      @switch (item.condition) {
+        @case (WeatherCondition.Sunny) {
+          <span class="weather-card__status weather-card__status--sunny">☀ Sunny</span>
+        }
+        @case (WeatherCondition.Cloudy) {
+          <span class="weather-card__status weather-card__status--cloudy">☁ Cloudy</span>
+        }
+        @case (WeatherCondition.Rainy) {
+          <span class="weather-card__status weather-card__status--rainy">🌧 Rainy</span>
+        }
+        @case (WeatherCondition.Stormy) {
+          <span class="weather-card__status weather-card__status--stormy">⛈ Stormy</span>
+        }
+        @case (WeatherCondition.Snowy) {
+          <span class="weather-card__status weather-card__status--snowy">❄ Snowy</span>
+        }
+        @default {
+          <span class="weather-card__status">Unknown</span>
+        }
+      }
+
+      @if (item.isDiscount) {
+        <span class="weather-card__badge">Акція</span>
+      }
+    </div>
+
     <h2>{{ item.title }}</h2>
     <p class="weather-card__description">{{ item.description }}</p>
 
@@ -10,15 +40,32 @@
       <p><strong>Дата:</strong> {{ item.forecastDate | date:'dd.MM.yyyy' }}</p>
       <p><strong>Температура:</strong> {{ item.temperature | number:'1.0-0' }} °C</p>
       <p><strong>Локація:</strong> {{ item.location.city }}, {{ item.location.country }}</p>
-      <p><strong>Вологість:</strong> {{ item.details.humidity | number:'1.0-0' }}%</p>
-      <p><strong>Вітер:</strong> {{ item.details.windSpeed | number:'1.0-1' }} м/с</p>
-      <p><strong>Тиск:</strong> {{ item.details.pressure | number:'1.0-0' }} гПа</p>
-      <p><strong>Координати:</strong> {{ item.location.coordinates.lat }}, {{ item.location.coordinates.lon }}</p>
+
+      <p><strong>Вологість:</strong> {{ item.details?.humidity | number:'1.0-0' }}%</p>
+      <p><strong>Вітер:</strong> {{ item.details?.windSpeed | number:'1.0-1' }} м/с</p>
+      <p><strong>Тиск:</strong> {{ item.details?.pressure | number:'1.0-0' }} гПа</p>
+
+      <p>
+        <strong>Координати:</strong>
+        {{ item.location.coordinates.lat }}, {{ item.location.coordinates.lon }}
+      </p>
     </div>
 
     <div class="weather-card__tags">
       @for (tag of item.tags; track tag) {
         <span>{{ tag | titlecase }}</span>
+      }
+    </div>
+
+    <div class="weather-card__actions">
+      @if (item.quantity > 0) {
+        <button class="weather-card__button" type="button" (click)="onBtnClick()">
+          Додати в кошик
+        </button>
+      } @else {
+        <button class="weather-card__button weather-card__button--disabled" type="button" disabled>
+          Немає в наявності
+        </button>
       }
     </div>
   </div>

@@ -33,5 +33,8 @@ export interface WeatherItem {
   condition: WeatherCondition;
   tags: string[];
   location: LocationInfo;
-  details: WeatherDetails;
+  details?: WeatherDetails; 
+  isDiscount: boolean;
+  quantity: number;
+  isFeatured: boolean;
 }

@@ -11,4 +11,8 @@ import { WeatherItem } from '../../shared/models/weather-item';
 })
 export class WeatherList {
   public items: WeatherItem[] = WEATHER_ITEMS;
+
+  handleCardAction(id: number): void {
+    console.log(`Користувач натиснув кнопку на товарі з ID: ${id}`);
+  }
 }
