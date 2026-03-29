@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WeatherCard } from '../../shared/components/weather-card/weather-card';
-import { WEATHER_ITEMS } from '../../shared/mock-data';
 import { WeatherCondition, WeatherItem } from '../../shared/models/weather-item';
+import { WeatherService } from '../../shared/services/weather.service';
 
 @Component({
   selector: 'weather-list',
@@ -10,39 +10,43 @@ import { WeatherCondition, WeatherItem } from '../../shared/models/weather-item'
   templateUrl: './weather-list.html',
   styleUrl: './weather-list.css',
 })
-export class WeatherList {
+export class WeatherList implements OnInit {
   public searchQuery: string = '';
   public selectedCondition: string = 'All';
 
-  public allProducts: WeatherItem[] = WEATHER_ITEMS;
-  public filteredProducts: WeatherItem[] = WEATHER_ITEMS;
+  public filteredProducts: WeatherItem[] = [];
 
   public conditionOptions: string[] = [
     'All',
     ...Object.values(WeatherCondition),
   ];
 
-  handleCardAction(id: number): void {
-    console.log(`Користувач натиснув кнопку на товарі з ID: ${id}`);
+  constructor(private weatherService: WeatherService) {}
+
+  ngOnInit(): void {
+    this.loadItems();
   }
 
-  filterItems(): void {
-    const query = this.searchQuery.toLowerCase().trim();
+  loadItems(): void {
+    this.filteredProducts = this.weatherService.filterItems(
+      this.searchQuery,
+      this.selectedCondition
+    );
+  }
 
-    this.filteredProducts = this.allProducts.filter((item) => {
-      const matchesText = item.title.toLowerCase().includes(query);
-      const matchesCondition =
-        this.selectedCondition === 'All' ||
-        item.condition === this.selectedCondition;
+  handleCardAction(id: number): void {
+    this.weatherService.deleteItem(id);
+    this.loadItems();
+  }
 
-      return matchesText && matchesCondition;
-    });
+  onFiltersChange(): void {
+    this.loadItems();
   }
 
   resetFilters(element: HTMLInputElement): void {
     this.searchQuery = '';
     this.selectedCondition = 'All';
-    this.filterItems();
+    this.loadItems();
     element.focus();
   }
 }

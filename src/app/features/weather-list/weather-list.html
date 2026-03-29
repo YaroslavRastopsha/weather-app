@@ -2,7 +2,7 @@
   <div class="weather-list-section__header">
     <h1>Прогноз погоди по містах</h1>
     <p>
-      Список підтримує пошук, фільтрацію за погодним станом та очищення фільтрів.
+      Список підтримує пошук, фільтрацію за погодним станом та видалення елементів через сервіс.
     </p>
   </div>
 
@@ -13,7 +13,7 @@
       class="filters-panel__input"
       placeholder="Пошук за назвою..."
       [(ngModel)]="searchQuery"
-      (ngModelChange)="filterItems()"
+      (ngModelChange)="onFiltersChange()"
     />
 
     <p class="filters-panel__info">
@@ -23,7 +23,7 @@
     <select
       class="filters-panel__select"
       [(ngModel)]="selectedCondition"
-      (ngModelChange)="filterItems()"
+      (ngModelChange)="onFiltersChange()"
     >
       @for (condition of conditionOptions; track condition) {
         <option [value]="condition">{{ condition }}</option>
