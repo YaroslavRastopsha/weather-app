@@ -2,13 +2,45 @@
   <div class="weather-list-section__header">
     <h1>Прогноз погоди по містах</h1>
     <p>
-      Список побудований через smart/list компонент, а кожна картка є окремим
-      dumb/card компонентом.
+      Список підтримує пошук, фільтрацію за погодним станом та очищення фільтрів.
     </p>
   </div>
 
+  <div class="filters-panel">
+    <input
+      #searchInput
+      type="text"
+      class="filters-panel__input"
+      placeholder="Пошук за назвою..."
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="filterItems()"
+    />
+
+    <p class="filters-panel__info">
+      Поточний пошук: {{ searchQuery }}
+    </p>
+
+    <select
+      class="filters-panel__select"
+      [(ngModel)]="selectedCondition"
+      (ngModelChange)="filterItems()"
+    >
+      @for (condition of conditionOptions; track condition) {
+        <option [value]="condition">{{ condition }}</option>
+      }
+    </select>
+
+    <button
+      type="button"
+      class="filters-panel__button"
+      (click)="resetFilters(searchInput)"
+    >
+      Очистити фільтри
+    </button>
+  </div>
+
   <div class="weather-grid">
-    @for (item of items; track item.id) {
+    @for (item of filteredProducts; track item.id) {
       <weather-card
         [item]="item"
         (cardAction)="handleCardAction($event)"

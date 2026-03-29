@@ -1,26 +1,40 @@
-.weather-list-section {
-  width: min(1200px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 32px 0 40px;
-}
-
-.weather-list-section__header {
+.filters-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
   margin-bottom: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
 }
 
-.weather-list-section__header h1 {
-  margin: 0 0 8px;
-  font-size: 32px;
+.filters-panel__input,
+.filters-panel__select {
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
-.weather-list-section__header p {
+.filters-panel__button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filters-panel__button:hover {
+  opacity: 0.9;
+}
+
+.filters-panel__info {
   margin: 0;
   color: #475569;
-  line-height: 1.5;
-}
-
-.weather-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  font-size: 14px;
 }
