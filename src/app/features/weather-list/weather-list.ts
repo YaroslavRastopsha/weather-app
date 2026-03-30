@@ -1,12 +1,15 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { WeatherCard } from '../../shared/components/weather-card/weather-card';
+import { FilterOptions } from '../../shared/models/filter-options';
 import { WeatherCondition, WeatherItem } from '../../shared/models/weather-item';
 import { WeatherService } from '../../shared/services/weather.service';
 
 @Component({
   selector: 'weather-list',
-  imports: [WeatherCard, FormsModule],
+  imports: [WeatherCard, FormsModule, AsyncPipe],
   templateUrl: './weather-list.html',
   styleUrl: './weather-list.css',
 })
@@ -14,7 +17,7 @@ export class WeatherList implements OnInit {
   public searchQuery: string = '';
   public selectedCondition: string = 'All';
 
-  public filteredProducts: WeatherItem[] = [];
+  public products$!: Observable<WeatherItem[]>;
 
   public conditionOptions: string[] = [
     'All',
@@ -24,29 +27,32 @@ export class WeatherList implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
-    this.loadItems();
-  }
-
-  loadItems(): void {
-    this.filteredProducts = this.weatherService.filterItems(
-      this.searchQuery,
-      this.selectedCondition
-    );
+    this.products$ = this.weatherService.items$;
+    this.weatherService.initItems();
   }
 
   handleCardAction(id: number): void {
     this.weatherService.deleteItem(id);
-    this.loadItems();
   }
 
   onFiltersChange(): void {
-    this.loadItems();
+    const options: FilterOptions = {
+      query: this.searchQuery,
+      condition: this.selectedCondition,
+    };
+
+    this.weatherService.filterItems(options);
   }
 
   resetFilters(element: HTMLInputElement): void {
     this.searchQuery = '';
     this.selectedCondition = 'All';
-    this.loadItems();
+
+    this.weatherService.filterItems({
+      query: '',
+      condition: 'All',
+    });
+
     element.focus();
   }
 }

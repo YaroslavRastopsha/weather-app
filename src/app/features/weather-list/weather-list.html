@@ -2,7 +2,7 @@
   <div class="weather-list-section__header">
     <h1>Прогноз погоди по містах</h1>
     <p>
-      Список підтримує пошук, фільтрацію за погодним станом та видалення елементів через сервіс.
+      Список підтримує реактивний пошук, фільтрацію за погодним станом та видалення елементів через сервіс.
     </p>
   </div>
 
@@ -39,14 +39,20 @@
     </button>
   </div>
 
-  <div class="weather-grid">
-    @for (item of filteredProducts; track item.id) {
-      <weather-card
-        [item]="item"
-        (cardAction)="handleCardAction($event)"
-      ></weather-card>
-    } @empty {
-      <p>Немає даних для відображення.</p>
-    }
-  </div>
+  @if (products$ | async; as products) {
+    <div class="weather-grid">
+      @for (item of products; track item.id) {
+        <weather-card
+          [item]="item"
+          (cardAction)="handleCardAction($event)"
+        ></weather-card>
+      } @empty {
+        <p>Немає даних для відображення.</p>
+      }
+    </div>
+  } @else {
+    <div class="loading-block">
+      <p>Завантаження даних...</p>
+    </div>
+  }
 </section>
