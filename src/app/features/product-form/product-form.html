@@ -1,0 +1,185 @@
+<section class="product-form-page">
+  <div class="product-form-page__header">
+    <h1>Додавання нового прогнозу</h1>
+    <p>Заповни форму. Якщо десь помилка - Angular покаже її під полем.</p>
+  </div>
+
+  <form class="product-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Назва</label>
+      <input id="title" type="text" formControlName="title" />
+
+      @if (title?.invalid && title?.touched) {
+        <div class="error">
+          @if (title?.errors?.['required']) {
+            <small>Поле назви обов'язкове.</small>
+          } @else if (title?.errors?.['minlength']) {
+            <small>Мінімум 3 символи.</small>
+          } @else if (title?.errors?.['forbiddenName']) {
+            <small>Ця назва заборонена.</small>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Опис</label>
+      <textarea id="description" rows="4" formControlName="description"></textarea>
+
+      @if (description?.invalid && description?.touched) {
+        <div class="error">
+          @if (description?.errors?.['required']) {
+            <small>Опис обов'язковий.</small>
+          } @else if (description?.errors?.['minlength']) {
+            <small>Мінімум 10 символів.</small>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">URL зображення</label>
+      <input id="imageUrl" type="text" formControlName="imageUrl" />
+
+      @if (imageUrl?.invalid && imageUrl?.touched) {
+        <div class="error">
+          @if (imageUrl?.errors?.['required']) {
+            <small>URL обов'язковий.</small>
+          } @else if (imageUrl?.errors?.['pattern']) {
+            <small>Посилання має починатися з http:// або https://</small>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="temperature">Температура</label>
+      <input id="temperature" type="number" formControlName="temperature" />
+
+      @if (temperature?.invalid && temperature?.touched) {
+        <div class="error">
+          @if (temperature?.errors?.['required']) {
+            <small>Температура обов'язкова.</small>
+          } @else if (temperature?.errors?.['min']) {
+            <small>Температура занадто мала.</small>
+          } @else if (temperature?.errors?.['max']) {
+            <small>Температура занадто велика.</small>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="forecastDate">Дата прогнозу</label>
+      <input id="forecastDate" type="date" formControlName="forecastDate" />
+
+      @if (forecastDate?.invalid && forecastDate?.touched) {
+        <div class="error">
+          <small>Дата обов'язкова.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="condition">Стан погоди</label>
+      <select id="condition" formControlName="condition">
+        @for (item of conditionOptions; track item) {
+          <option [value]="item">{{ item }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="city">Місто</label>
+      <input id="city" type="text" formControlName="city" />
+
+      @if (city?.invalid && city?.touched) {
+        <div class="error">
+          <small>Вкажи місто.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="country">Країна</label>
+      <input id="country" type="text" formControlName="country" />
+
+      @if (country?.invalid && country?.touched) {
+        <div class="error">
+          <small>Вкажи країну.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="lat">Широта</label>
+      <input id="lat" type="number" formControlName="lat" />
+
+      @if (lat?.invalid && lat?.touched) {
+        <div class="error">
+          <small>Широта має бути від -90 до 90.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="lon">Довгота</label>
+      <input id="lon" type="number" formControlName="lon" />
+
+      @if (lon?.invalid && lon?.touched) {
+        <div class="error">
+          <small>Довгота має бути від -180 до 180.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="humidity">Вологість</label>
+      <input id="humidity" type="number" formControlName="humidity" />
+
+      @if (humidity?.invalid && humidity?.touched) {
+        <div class="error">
+          <small>Вологість має бути від 0 до 100.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="windSpeed">Швидкість вітру</label>
+      <input id="windSpeed" type="number" formControlName="windSpeed" />
+
+      @if (windSpeed?.invalid && windSpeed?.touched) {
+        <div class="error">
+          <small>Вкажи правильну швидкість вітру.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="pressure">Тиск</label>
+      <input id="pressure" type="number" formControlName="pressure" />
+
+      @if (pressure?.invalid && pressure?.touched) {
+        <div class="error">
+          <small>Вкажи правильний тиск.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Кількість</label>
+      <input id="quantity" type="number" formControlName="quantity" />
+
+      @if (quantity?.invalid && quantity?.touched) {
+        <div class="error">
+          <small>Кількість не може бути від'ємною.</small>
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid">Зберегти</button>
+      <a routerLink="/products">Скасувати</a>
+    </div>
+  </form>
+</section>

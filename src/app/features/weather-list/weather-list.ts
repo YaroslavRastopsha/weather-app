@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { WeatherCard } from '../../shared/components/weather-card/weather-card';
 import { FilterOptions } from '../../shared/models/filter-options';
@@ -9,7 +10,7 @@ import { WeatherService } from '../../shared/services/weather.service';
 
 @Component({
   selector: 'weather-list',
-  imports: [WeatherCard, FormsModule, AsyncPipe],
+  imports: [WeatherCard, FormsModule, AsyncPipe, RouterLink],
   templateUrl: './weather-list.html',
   styleUrl: './weather-list.css',
 })

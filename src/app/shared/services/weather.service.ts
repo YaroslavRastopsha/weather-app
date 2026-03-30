@@ -9,14 +9,11 @@ import { WeatherItem } from '../models/weather-item';
   providedIn: 'root',
 })
 export class WeatherService {
-  // Full source data
   private allItems: WeatherItem[] = [...WEATHER_ITEMS];
 
-  // Main state stream for UI
   private itemsSubject$ = new BehaviorSubject<WeatherItem[]>([]);
   public items$ = this.itemsSubject$.asObservable();
 
-  // Filter state
   private filterSubject$ = new BehaviorSubject<FilterOptions>({
     query: '',
     condition: 'All',
@@ -66,6 +63,24 @@ export class WeatherService {
 
   deleteItem(id: number): void {
     this.allItems = this.allItems.filter((item) => item.id !== id);
+
+    const currentFilter = this.filterSubject$.value;
+    const query = currentFilter.query.toLowerCase().trim();
+
+    const filteredItems = this.allItems.filter((item) => {
+      const matchesQuery = item.title.toLowerCase().includes(query);
+      const matchesCondition =
+        currentFilter.condition === 'All' ||
+        item.condition === currentFilter.condition;
+
+      return matchesQuery && matchesCondition;
+    });
+
+    this.itemsSubject$.next(filteredItems);
+  }
+
+  addItem(newItem: WeatherItem): void {
+    this.allItems = [...this.allItems, newItem];
 
     const currentFilter = this.filterSubject$.value;
     const query = currentFilter.query.toLowerCase().trim();
