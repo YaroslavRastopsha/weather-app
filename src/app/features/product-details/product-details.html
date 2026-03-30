@@ -1,0 +1,82 @@
+@if (product$ | async; as product) {
+  @if (product) {
+    <div class="details-page">
+      <button type="button" class="back-button" (click)="goBack()">← Назад</button>
+
+      <div class="details-card">
+        <img
+          class="details-image"
+          [src]="product.imageUrl"
+          [alt]="product.title"
+        />
+
+        <div class="details-info">
+          <div class="details-top">
+            @switch (product.condition) {
+              @case (WeatherCondition.Sunny) {
+                <span class="details-status details-status--sunny">☀ Sunny</span>
+              }
+              @case (WeatherCondition.Cloudy) {
+                <span class="details-status details-status--cloudy">☁ Cloudy</span>
+              }
+              @case (WeatherCondition.Rainy) {
+                <span class="details-status details-status--rainy">🌧 Rainy</span>
+              }
+              @case (WeatherCondition.Stormy) {
+                <span class="details-status details-status--stormy">⛈ Stormy</span>
+              }
+              @case (WeatherCondition.Snowy) {
+                <span class="details-status details-status--snowy">❄ Snowy</span>
+              }
+              @default {
+                <span class="details-status">Unknown</span>
+              }
+            }
+
+            @if (product.isDiscount) {
+              <span class="details-badge">Акція</span>
+            }
+          </div>
+
+          <h1>{{ product.title }}</h1>
+          <p class="details-description">{{ product.description }}</p>
+
+          <div class="details-meta">
+            <p><strong>Дата прогнозу:</strong> {{ product.forecastDate | date:'dd.MM.yyyy' }}</p>
+            <p><strong>Температура:</strong> {{ product.temperature | number:'1.0-0' }} °C</p>
+            <p><strong>Локація:</strong> {{ product.location.city }}, {{ product.location.country }}</p>
+
+            <p><strong>Вологість:</strong> {{ product.details?.humidity | number:'1.0-0' }}%</p>
+            <p><strong>Вітер:</strong> {{ product.details?.windSpeed | number:'1.0-1' }} м/с</p>
+            <p><strong>Тиск:</strong> {{ product.details?.pressure | number:'1.0-0' }} гПа</p>
+
+            <p>
+              <strong>Координати:</strong>
+              {{ product.location.coordinates.lat }},
+              {{ product.location.coordinates.lon }}
+            </p>
+
+            <p><strong>Кількість:</strong> {{ product.quantity }}</p>
+            <p><strong>Популярний:</strong> {{ product.isFeatured ? 'Так' : 'Ні' }}</p>
+          </div>
+
+          <div class="details-tags">
+            <h3>Теги</h3>
+            <div class="details-tags-list">
+              @for (tag of product.tags; track tag) {
+                <span>{{ tag | titlecase }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="not-found-inside">
+      <h2>Елемент не знайдено</h2>
+      <a routerLink="/products">Повернутися до списку</a>
+    </div>
+  }
+} @else {
+  <p>Завантаження...</p>
+}

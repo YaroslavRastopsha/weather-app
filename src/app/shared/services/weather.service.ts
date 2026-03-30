@@ -58,8 +58,10 @@ export class WeatherService {
     });
   }
 
-  getById(id: number): WeatherItem | undefined {
-    return this.allItems.find((item) => item.id === id);
+  getById(id: number | string): Observable<WeatherItem | undefined> {
+    const numericId = Number(id);
+    const item = this.allItems.find((item) => item.id === numericId);
+    return of(item).pipe(delay(1000));
   }
 
   deleteItem(id: number): void {

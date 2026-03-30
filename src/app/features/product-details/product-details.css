@@ -1,0 +1,32 @@
+.details-page {
+  padding: 20px;
+}
+
+.details-card {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.details-image {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+.details-info {
+  flex: 1;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #dbeafe;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.not-found-inside {
+  padding: 20px;
+}

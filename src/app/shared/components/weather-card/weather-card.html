@@ -58,6 +58,10 @@
     </div>
 
     <div class="weather-card__actions">
+      <a class="weather-card__button weather-card__button--details" [routerLink]="['/product', item.id]">
+        Детальніше
+      </a>
+
       @if (item.quantity > 0) {
         <button class="weather-card__button" type="button" (click)="onBtnClick()">
           Додати в кошик
