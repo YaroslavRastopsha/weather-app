@@ -2,12 +2,13 @@ import { CommonModule, DatePipe, DecimalPipe, Location, TitleCasePipe } from '@a
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { WeatherCondition, WeatherItem } from '../../shared/models/weather-item';
+import { WeatherItem } from '../../shared/models/weather-item';
 import { WeatherService } from '../../shared/services/weather.service';
+import { StatusColorPipe } from '../../shared/pipes/status-color';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, TitleCasePipe],
+  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, TitleCasePipe, StatusColorPipe],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
@@ -15,7 +16,6 @@ export class ProductDetails implements OnInit {
   @Input() id!: string;
 
   public product$!: Observable<WeatherItem | undefined>;
-  protected readonly WeatherCondition = WeatherCondition;
 
   constructor(
     private weatherService: WeatherService,

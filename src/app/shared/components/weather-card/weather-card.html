@@ -2,31 +2,18 @@
   class="weather-card"
   [class.weather-card--featured]="item.isFeatured"
   [class.weather-card--hot]="item.temperature > 14"
+  [appHighlight]="'#f8fafc'"
 >
   <img class="weather-card__image" [src]="item.imageUrl" [alt]="item.title" />
 
   <div class="weather-card__content">
     <div class="weather-card__top">
-      @switch (item.condition) {
-        @case (WeatherCondition.Sunny) {
-          <span class="weather-card__status weather-card__status--sunny">☀ Sunny</span>
-        }
-        @case (WeatherCondition.Cloudy) {
-          <span class="weather-card__status weather-card__status--cloudy">☁ Cloudy</span>
-        }
-        @case (WeatherCondition.Rainy) {
-          <span class="weather-card__status weather-card__status--rainy">🌧 Rainy</span>
-        }
-        @case (WeatherCondition.Stormy) {
-          <span class="weather-card__status weather-card__status--stormy">⛈ Stormy</span>
-        }
-        @case (WeatherCondition.Snowy) {
-          <span class="weather-card__status weather-card__status--snowy">❄ Snowy</span>
-        }
-        @default {
-          <span class="weather-card__status">Unknown</span>
-        }
-      }
+      <span
+        class="weather-card__status"
+        [style.backgroundColor]="item.condition | statusColor"
+      >
+        {{ item.condition }}
+      </span>
 
       @if (item.isDiscount) {
         <span class="weather-card__badge">Акція</span>
@@ -34,7 +21,9 @@
     </div>
 
     <h2>{{ item.title }}</h2>
-    <p class="weather-card__description">{{ item.description }}</p>
+    <p class="weather-card__description">
+      {{ item.description | truncate:60 }}
+    </p>
 
     <div class="weather-card__meta">
       <p><strong>Дата:</strong> {{ item.forecastDate | date:'dd.MM.yyyy' }}</p>

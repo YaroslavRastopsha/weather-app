@@ -12,26 +12,12 @@
 
         <div class="details-info">
           <div class="details-top">
-            @switch (product.condition) {
-              @case (WeatherCondition.Sunny) {
-                <span class="details-status details-status--sunny">☀ Sunny</span>
-              }
-              @case (WeatherCondition.Cloudy) {
-                <span class="details-status details-status--cloudy">☁ Cloudy</span>
-              }
-              @case (WeatherCondition.Rainy) {
-                <span class="details-status details-status--rainy">🌧 Rainy</span>
-              }
-              @case (WeatherCondition.Stormy) {
-                <span class="details-status details-status--stormy">⛈ Stormy</span>
-              }
-              @case (WeatherCondition.Snowy) {
-                <span class="details-status details-status--snowy">❄ Snowy</span>
-              }
-              @default {
-                <span class="details-status">Unknown</span>
-              }
-            }
+            <span
+              class="details-status"
+              [style.backgroundColor]="product.condition | statusColor"
+            >
+              {{ product.condition }}
+            </span>
 
             @if (product.isDiscount) {
               <span class="details-badge">Акція</span>

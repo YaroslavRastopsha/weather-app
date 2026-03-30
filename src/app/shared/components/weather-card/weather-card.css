@@ -150,3 +150,13 @@
   background: #94a3b8;
   cursor: not-allowed;
 }
+.weather-card {
+  transition: all 0.3s ease;
+}
+.weather-card__status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+}
